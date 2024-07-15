@@ -6,6 +6,8 @@ from .forms import CamionForm, RegistroUserForm
 from django.contrib import messages
 from core.compras import Carrito
 
+from django.db.models import Q
+
 
 
 # Create your views here.
@@ -19,12 +21,34 @@ def nosotros(request):
     return render(request, 'nosotros.html')
 
 
+def productos_general(request):
+    camion = Vehiculo.objects.all()
+    busqueda = request.GET.get("buscar")
+    if busqueda: 
+        camion = Vehiculo.objects.filter(
+            Q(marca__icontains = busqueda) |
+            Q(placa__icontains = busqueda) |
+            Q(capacidad__icontains = busqueda) |
+            Q(categoria1__nombre__icontains=busqueda) |
+            Q(categoria2__ciudad__icontains=busqueda)
+        ).distinct()
+    return render(request, 'productos_general.html', {'camion':camion})
+
 @login_required
-def servicios(request): 
-    camion = Vehiculo.objects.all()              #similar a select * from Vehiculo
+def servicios(request):
+    camion = Vehiculo.objects.all()
+    busqueda = request.GET.get("buscar")
+    if busqueda: 
+        camion = Vehiculo.objects.filter(
+            Q(marca__icontains = busqueda) |
+            Q(placa__icontains = busqueda) |
+            Q(capacidad__icontains = busqueda) |
+            Q(categoria1__nombre__icontains=busqueda) |
+            Q(categoria2__ciudad__icontains=busqueda)
+        ).distinct()
     return render(request, 'servicios.html', {'camion':camion})
+
 @login_required
-@user_passes_test(es_admin)
 def crear(request):
     if request.method == 'POST':
         camionForm = CamionForm(request.POST, request.FILES)  # Crear una instancia de CancionesForms con datos del POST
@@ -43,8 +67,7 @@ def detalle(request, id):
 
 
 
-@login_required
-@user_passes_test(es_admin)
+
 def modificar(request, id):
     vehiculo = Vehiculo.objects.get(placa=id)
     datos={
@@ -63,8 +86,7 @@ def modificar(request, id):
         formulario = CamionForm(instance=vehiculo)
     return render(request, 'modificar.html', {'forModificar': formulario, 'vehiculo': vehiculo})
 
-@login_required
-@user_passes_test(es_admin)
+
 def eliminar(request, id):
     camion = get_object_or_404(Vehiculo, placa=id)
     if request.method=='POST':

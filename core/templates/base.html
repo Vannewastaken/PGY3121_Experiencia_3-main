@@ -48,20 +48,16 @@
                 </h2>
             </a>
             <div class="collapse navbar-collapse" id="opciones">
-                <ul class="navbar-nav" style="margin-left: 15px;">
-                    <li><a href="{% url 'home' %}">Home</a></li>
-                    <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
-                    <li><a href="{% url 'tienda' %}">Tienda</a></li>
+                <ul class="navbar-nav   " style="margin-left: 15px;">
                     {% if user.is_authenticated %}
-                        {% if user.is_superuser %}
-                            <li><a href="{% url 'crear' %}">Crear Producto</a></li>
+                        {% if user.is_staff %}
+                            {% include 'menuAdmin.html' %}
+                        {% else %}
+                            {% include 'menuCliente.html' %}
                         {% endif %}
-                        <li><a href="{% url 'profile' %}">Perfil</a></li>
-                        <li><a href="{% url 'cerrar' %}">Cerrar Sesión</a></li>
                     {% else %}
-                        <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
-                        <li><a href="{% url 'registrar' %}">Registrarse</a></li>
-                    {% endif %}
+                        {% include 'menuGeneral.html' %}
+                    {% endif %} 
                 </ul>
             </div>
     </nav>
