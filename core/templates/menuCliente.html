@@ -20,7 +20,7 @@
         {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'cuenta' %}">
-                    <h2 class="poppins">PERFIIL CLIENTE: {{ user.email }}</h2>
+                    <h2 class="poppins">PERFIIL CLIENTE: {{ user.username }}</h2>
                 </a>
             </li>
         {% endif %}

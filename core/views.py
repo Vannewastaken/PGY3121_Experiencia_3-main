@@ -66,8 +66,6 @@ def detalle(request, id):
     return render (request, 'detalle.html', {'camion':camion})
 
 
-
-
 def modificar(request, id):
     vehiculo = Vehiculo.objects.get(placa=id)
     datos={
@@ -77,14 +75,9 @@ def modificar(request, id):
     if request.method=='POST':
         formulario= CamionForm(request.POST, request.FILES, instance=vehiculo)
         if formulario.is_valid():
-            formulario.save()
-            messages.success(request, "El camión ha sido modificado correctamente.")
+            formulario.save()               #actualiza la información del obj.
             return redirect('servicios')
-        else:
-            messages.error(request, "Por favor, corrija los errores en el formulario.")
-    else:
-        formulario = CamionForm(instance=vehiculo)
-    return render(request, 'modificar.html', {'forModificar': formulario, 'vehiculo': vehiculo})
+    return render(request, 'modificar.html', datos)
 
 
 def eliminar(request, id):
@@ -177,7 +170,8 @@ def generarBoleta(request):
             producto = Vehiculo.objects.get(placa = value['placa'])
             cant = value['cantidad']
             subtotal = cant * int(value['precio'])
-            detalle = detalle_boleta(id_boleta = boleta, id_producto = producto, cantidad = cant, subtotal = subtotal)
+            cliente = request.user.username
+            detalle = detalle_boleta(id_boleta = boleta, id_producto = producto, cantidad = cant, subtotal = subtotal, cliente = cliente)
             detalle.save()
             productos.append(detalle)
     datos={
@@ -191,3 +185,6 @@ def generarBoleta(request):
     return render(request, 'detallecarrito.html',datos)
 
 
+def boleta(request):
+    detalle_boletas = detalle_boleta.objects.all()
+    return render(request, 'boleta.html', {'detalle_boletas': detalle_boletas})

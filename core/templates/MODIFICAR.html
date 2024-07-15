@@ -4,8 +4,82 @@
 {% block head-extra %}
 {% load static %}
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+<script>
+    $(function(){
+        $.validator.addMethod("exactlength", function(value, element, param) {
+            return this.optional(element) || value.length === param;
+        }, "Debe tener exactamente 6 caracteres.");
+
+        $.validator.addMethod("lettersynumbers", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+        }, "Solo se permiten letras y números.");
+        $.validator.addMethod("numeropositivo", function(value, element) {
+            return this.optional(element) || /^[0-9]+$/.test(value) && value > 0;
+        }, "Debe ingresar un número positivo.");
+
+        $("#formModificar").validate({
+            
+            rules:{
+                placa:{
+                    required: true,
+                    exactlength: 6,
+                    lettersynumbers: true
+                },
+                marca:{
+                    required: true,
+                    minlength: 3
+                },
+                modelo:{
+                    required: true,
+                    minlength: 3
+                },
+                capacidad:{
+                    required: true,
+                    numeropositivo: true
+                },
+                precio:{
+                    required: true,
+                    numeropositivo: true
+                },
+                categoria1:{
+                    required: true
+                },
+                categoria2:{
+                    required: true
+                }
+            },
+            messages:{
+                placa:{
+                    required: "Debe ingresar el nombre del producto",
+                    exactlength: "La placa debe tener exactamente 6 caracteres",
+                    lettersynumbers: "Solo se permiten letras y números"
+                },
+                marca:{
+                    required: "Debe ingresar la marca",
+                    minlength: "Ingrese al menos 3 caracteres"
+                },
+                modelo:{
+                    required: "Debe ingresar el modelo",
+                    minlength: "Ingrese al menos 3 caracteres"
+                },
+                capacidad:{
+                    required: "Debe ingresar la capacidad",
+                    numeropositivo: "Debe ingresar un número positivo"
+                },
+                precio:{
+                    required: "Debe ingresar el precio",
+                    numeropositivo: "Debe ingresar un número positivo"
+                },
+                categoria1:{
+                    required: "Debe ingresar una categoría"
+                },
+                categoria2:{
+                    required: "Debe ingresar una categoría"
+                }
+            }
+        });
+    });
+</script>
 
 
 {% endblock %}
@@ -16,61 +90,47 @@
 
     <h1 class="text-center " style="font-size: 60px; padding: 70px;">¡MODIFICANDO CAMIÓN!</h1>
     <br>
-
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-            </div>
-            {% endfor %}
-    {% endif %}
     
 
-    <form action="" method="POST" enctype="multipart/form-data" id="formulario" >  
+    <form action="" method="POST" enctype="multipart/form-data" id="formModificar" >  
         {% csrf_token %}
 
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.placa.label }}
             {{ forModificar.placa }}
-            {{ forModificar.placa.errors }}
+            
         </div>
 
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.marca.label }}
             {{ forModificar.marca }}
-            {{ forModificar.marca.errors }}
-        </div>
+           
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.modelo.label }}
             {{ forModificar.modelo }}
-            {{ forModificar.modelo.errors }}
+            
         </div>
 
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.capacidad.label }}
             {{ forModificar.capacidad }}
-            {{ forModificar.capacidad.errors }}
+            
         </div>
 
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.precio.label }}
             {{ forModificar.precio }}
-            {{ forModificar.precio.errors }}
-        </div>
-        <div class="form-group" style="margin-bottom: 20px;">
-            {{ forModificar.imagen.label }}
-            {{ forModificar.imagen }}
-            {{ forModificar.imagen.errors }}
+            
         </div>
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.categoria1.label }}
             {{ forModificar.categoria1 }}
-            {{ forModificar.categoria1.errors }}
+           
         </div>
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.categoria2.label }}
             {{ forModificar.categoria2 }}
-            {{ forModificar.categoria2.errors }}
+            
         </div>
 
         {% if vehiculo.imagen %}

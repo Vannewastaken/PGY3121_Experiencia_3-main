@@ -48,6 +48,7 @@ class detalle_boleta(models.Model):
     id_producto = models.ForeignKey('Vehiculo', on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     subtotal = models.BigIntegerField()
+    cliente = models.TextField(max_length=50, verbose_name="Cliente", default="Sin user")
 
     def __str__(self):
         return str(self.id_detalle_boleta)

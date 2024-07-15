@@ -1,42 +1,76 @@
 {% extends "base.html" %}
 {% block head-extra %}
 <script>
-    $(document).ready(function() {
-        $("#formulario").validate({
-            rules: {
-                placa: "required",
-                marca: "required",
-                modelo: "required",
-                capacidad: "required",
-                precio: "required",
-                imagen: "required",
-                categoria1: "required",
-                categoria2: "required",
+    $(function(){
+        $.validator.addMethod("exactlength", function(value, element, param) {
+            return this.optional(element) || value.length === param;
+        }, "Debe tener exactamente 6 caracteres.");
+
+        $.validator.addMethod("lettersynumbers", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+        }, "Solo se permiten letras y números.");
+        $.validator.addMethod("numeropositivo", function(value, element) {
+            return this.optional(element) || /^[0-9]+$/.test(value) && value > 0;
+        }, "Debe ingresar un número positivo.");
+
+        $("#crear").validate({
+            
+            rules:{
+                placa:{
+                    required: true,
+                    exactlength: 6,
+                    lettersynumbers: true
+                },
+                marca:{
+                    required: true,
+                    minlength: 3
+                },
+                modelo:{
+                    required: true,
+                    minlength: 3
+                },
+                capacidad:{
+                    required: true,
+                    numeropositivo: true
+                },
+                precio:{
+                    required: true,
+                    numeropositivo: true
+                },
+                categoria1:{
+                    required: true
+                },
+                categoria2:{
+                    required: true
+                }
             },
-            messages: {
-                placa: {
-                    required: 'Ingrese Patente del Camión',
+            messages:{
+                placa:{
+                    required: "Debe ingresar el nombre del producto",
+                    exactlength: "La placa debe tener exactamente 6 caracteres",
+                    lettersynumbers: "Solo se permiten letras y números"
                 },
-                marca: {
-                    required: 'Ingrese marca',
+                marca:{
+                    required: "Debe ingresar la marca",
+                    minlength: "Ingrese al menos 3 caracteres"
                 },
-                modelo: {
-                    required: 'Ingrese modelo',
+                modelo:{
+                    required: "Debe ingresar el modelo",
+                    minlength: "Ingrese al menos 3 caracteres"
                 },
-                capacidad: {
-                    required: 'Seleccione la capacidad',
+                capacidad:{
+                    required: "Debe ingresar la capacidad",
+                    numeropositivo: "Debe ingresar un número positivo"
                 },
-                precio: {
-                    required: 'Seleccione el precio',
+                precio:{
+                    required: "Debe ingresar el precio",
+                    numeropositivo: "Debe ingresar un número positivo"
                 },
-                imagen: {
-                    required: 'Seleccione imagen',
+                categoria1:{
+                    required: "Debe ingresar una categoría"
                 },
-                categoria1: {
-                    required: 'Seleccione categoria',
-                },
-                categoria2: {
-                    required: 'Seleccione ciudad',
+                categoria2:{
+                    required: "Debe ingresar una categoría"
                 }
             }
         });
@@ -48,7 +82,7 @@
 <main class="container">
     <h1 style="font-size: 50px; margin-top: 40px;">AGREGAR CAMIÓN!</h1>
     <br>
-    <form action="#" method="POST" enctype="multipart/form-data" id="formulario">
+    <form action="#" method="POST" enctype="multipart/form-data" id="crear">
         {% csrf_token %}
         
         <div class="form-group" style="margin-bottom: 20px;">

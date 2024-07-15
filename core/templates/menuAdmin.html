@@ -13,6 +13,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{% url 'boleta' %}">
+                <h2 class="poppins">Historial Boletas</h2>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'tienda' %}">
                 <h2 class="poppins">TIENDA</h2>
             </a>
@@ -20,7 +25,7 @@
         {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'cuenta' %}">
-                    <h2 class="poppins">PERFIIL ADMIN: {{ user.email }}</h2>
+                    <h2 class="poppins">PERFIIL ADMIN: {{ user.username }}</h2>
                 </a>
             </li>
         {% endif %}

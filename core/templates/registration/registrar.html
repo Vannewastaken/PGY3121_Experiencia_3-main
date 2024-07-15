@@ -3,9 +3,85 @@
 
 {% block head-extra %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'CSS/ESTILOS.css' %}">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+<script>
+    $(function(){
+        $.validator.addMethod("letterandnumbers", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+        }, "Este campo solo acepta letras y números.");
+        $.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-z]+$/i.test(value);
+            }, "Este campo solo acepta letras");
+
+        $.validator.addMethod("equalTo", function(value, element, param) {
+            return value == $(param).val();
+        }, "Las contraseñas no coinciden.");
+
+        $("#registro").validate({
+            
+            rules:{
+                username:{
+                    required: true,
+                    minlength: 3,
+                    letterandnumbers: true
+                },
+                first_name:{
+                    required: true,
+                    minlength: 3,
+                    lettersonly: true
+                },
+                last_name: {
+                    required: true,
+                    minlength: 3,
+                    lettersonly: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password1: {
+                    required: true,
+                    minlength: 8
+                },
+                password2: {
+                    required: true,
+                    minlength: 8,
+                    equalTo: "#id_password1"
+                }
+            },
+            messages:{
+                username:{
+                    required: "Debe ingresar su username",
+                    minlength: "Escriba al menos 3 caracteres",
+                    letterandnumbers:"Solo ingrese letras y números"
+                },
+                first_name:{
+                    required: "Debe ingresar su nombre",
+                    minlength: "Escriba al menos 3 caracteres",
+                    lettersonly: "No ingrese números ni caracteres especiales"
+                },
+                last_name: {
+                    required: "Debe ingresar su apellido",
+                    minlength: "Escriba al menos 3 caracteres",
+                    lettersonly: "No ingrese números ni caracteres especiales"
+                },
+                email: {
+                    required: "Debe ingresar su correo",
+                    email: "Ingrese un correo válido"
+                },
+                password1: {
+                    required: "Debe ingresar su contraseña",
+                    minlength: "Escriba al menos 8 caracteres"
+                },
+                password2: {
+                    required: "Repita su contraseña",
+                    minlength: "Escriba al menos 8 caracteres",
+                    equalTo: "Las contraseñas no coinciden"
+                }
+            }
+        });
+    });
+</script>
+
 
 
 
@@ -14,74 +90,74 @@
 {% block content %}
 {% load static %}
 <body style="background-color: #383b3d;">
-    <div class="container" >
-        <div class="row " style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
-            <div class="col-lg-3" >
-                
-            </div>
-            <div class="col-lg-6 rounded"  style="background-color: rgb(255, 255, 255); padding-bottom: 60px;">
-                <h1 style="padding-top: 80px; text-align: center; ">Registrarse</h1>
+    <div class="container">
+        <div class="row" style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 rounded" style="background-color: rgb(255, 255, 255); padding-bottom: 60px;">
+                <h1 style="padding-top: 80px;padding-left: 80px; font-weight: bold;">Registrarse</h1>
 
-                <div class="row inicioform text-center " style=" padding-top: 40px;">
-                    <form action="#" method="POST" id="formulario">
+                <div class="row inicioform " style="padding-top: 40px;padding-left: 90px;">
+                    <form action="#" method="POST" id="registro">
                         {% csrf_token %}
 
                         <div class="form-group" style="margin-bottom: 20px;">
                             <label for="">Username: </label><br>
                             {{ form.username }}
                             {% for error in form.username.errors %}
-                            <p style="color: red;">{{ error }}</p>
+                            <p style="color: rgb(143, 81, 81); font-size: 14px" >{{ error }}</p>
                             {% endfor %}
+                            
+                            
                         </div>
 
                         <div class="form-group" style="margin-bottom: 20px;">
                             <label for="">Nombre del usuario: </label><br>
                             {{ form.first_name }}
+                            
+                            
                         </div>
 
                         <div class="form-group" style="margin-bottom: 20px;">
                             <label for="">Apellido del usuario: </label><br>
                             {{ form.last_name }}
+                            
+                            
                         </div>
 
                         <div class="form-group" style="margin-bottom: 20px;">
                             <label for="">Correo Electrónico: </label><br>
                             {{ form.email }}
                             {% for error in form.email.errors %}
-                            <p style="color: red;">{{ error }}</p>
+                            <p style="color: rgb(143, 81, 81); font-size: 14px">{{ error }}</p>
                             {% endfor %}
+                            
+                            
                         </div>
 
                         <div class="form-group" style="margin-bottom: 20px;">
-                            <label for="">Contraseña: </label>
-                            <br>
+                            <label for="">Contraseña: </label><br>
                             {{ form.password1 }}
+                            
                         </div>
 
                         <div class="form-group" style="margin-bottom: 20px;">
                             <label for="">Repetir Contraseña: </label><br>
                             {{ form.password2 }}
+                            
                         </div>
                         
-                        <a href="{% url 'login' %}" class="btn btn-dark ">Login</a> | 
-                        <input type="submit" value="Registrarse" class="btn btn-dark " > |
+                        <a href="{% url 'login' %}" class="btn btn-dark">Login</a> | 
+                        <input type="submit" value="Registrarse" class="btn btn-dark"> | 
                         <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
-
 
                     </form>
                     
                 </div>
 
-                
-
             </div>
-            
-            <div class="col-lg-3" >
-                
-            </div>
-            
-        
-
+            <div class="col-lg-3"></div>
         </div>
     </div>
+</body>
 {% endblock %}
+

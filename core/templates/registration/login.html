@@ -5,63 +5,86 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/ESTILOS.css' %}">
 
+<script>
+    $(function(){
+        $.validator.addMethod("letterandnumbers", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+        }, "Este campo solo acepta letras y números.");
 
-
-
-
+        $("#login").validate({
+            errorPlacement: function(error, element) {
+            if (element.attr("name") == "username") {
+                error.appendTo("#error-username");
+            } else if (element.attr("name") == "password") {
+                error.appendTo("#error-password");
+            } else {
+                error.insertAfter(element); // Insertar después del elemento por defecto si no coincide
+            }
+        },
+            rules:{
+                username:{
+                    required: true,
+                    minlength: 3,
+                    letterandnumbers: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                }
+            },
+            messages:{
+                username:{
+                    required: "Debe ingresar su username",
+                    minlength: "Escriba al menos 3 caracteres",
+                    letterandnumbers: "Este campo solo acepta letras y números"
+                },
+                password: {
+                    required: "Debe ingresar su contraseña",
+                    minlength: "Escriba al menos 8 caracteres"
+                }
+            }
+        });
+    });
+</script>
 {% endblock %}
 
 {% block content %}
-{% load static %}
 <body style="background-color: #383b3d;">
-    <div class="container" >
-        <div class="row " style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
-            <div class="col-lg-3" >
-                
+    <div class="container">
+        <div class="row" style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
+            <div class="col-lg-3">
+                <!-- Espacio reservado o contenido adicional -->
             </div>
-            <div class="col-lg-6 rounded"  style="background-color: rgb(255, 255, 255);">
-                <h1 style="padding-top: 80px; text-align: center; ">Iniciar sesión</h1>
+            <div class="col-lg-6 rounded" style="background-color: rgb(255, 255, 255);">
+                <h1 style="padding-top: 80px; text-align: center;">Iniciar sesión</h1>
 
-                <div class="row inicioform " style=" padding-top: 40px;">
-                    <form action="#" method="POST" class="text-center">
+                <div class="row inicioform" style="padding-top: 40px;">
+                    <form action="#" method="POST" class="text-center" enctype="multipart/form-data" id="login">
                         {% csrf_token %}
-                                
-                                <div class="form-group" style="margin-bottom: 30px;">
-                                    <label for="">Username: </label><br>
-                                    {{form.username}}
-                                </div>
+                        <div class="form-group" style="margin-bottom: 30px;">
+                            <label for="id_username">Username: </label>
+                            <br>
+                            {{ form.username }}
+                            <div class="error-message" id="error-username"></div>
+                        </div>
 
-                                <div class="form-group" style="margin-bottom: 30px;">
-                                    <label for="">Contraseña: </label><br>
-                                    {{form.password}}
-                                </div>
+                        <div class="form-group" style="margin-bottom: 30px;">
+                            <label for="id_password">Contraseña: </label><br>
+                            {{ form.password }}
+                            <div class="error-message" id="error-password"></div>
+                        </div>
 
-                        <!-- BOTON CONTRASEÑA -->
-                        <!-- <div class="mt-3">
-                            <input type="checkbox" id="showPasswordCheckbox" onchange="togglePasswordVisibility()">
-                            <label for="showPasswordCheckbox">Mostrar contraseña</label>
-                        </div> -->
- 
-                        <!-- BOTONES INICIO Y REGISTRO -->
                         <a href="{% url 'registrar' %}" class="btn btn-dark">Registrarse</a> |
                         <input type="submit" value="Log In" class="btn btn-dark"> |
                         <a href="{% url 'home' %}" class="btn btn-dark">Home</a> |
-                        <a href="{% url 'password_reset' %}" class="btn btn-dark">Olvide mi Contraseña</a> 
-                        
+                        <a href="{% url 'password_reset' %}" class="btn btn-dark">Olvidé mi Contraseña</a>
                     </form>
-                    
                 </div>
-
-                
-
             </div>
-            
-            <div class="col-lg-3" >
-                
+            <div class="col-lg-3">
+                <!-- Espacio reservado o contenido adicional -->
             </div>
-            
-        
-
         </div>
     </div>
+</body>
 {% endblock %}

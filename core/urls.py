@@ -24,6 +24,8 @@ urlpatterns= [
     path('limpiar/', views.limpiar_carrito, name="limpiar"),
     path('generarBoleta/', views.generarBoleta,name="generarBoleta"),
 
+    path('boleta/', views.boleta, name="boleta"),
+
     path('accounts/password_reset/', auth_views.PasswordResetView.as_view(template_name='registration/password-reset-form.html'), name='password_reset'),
     path('accounts/password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='registration/password-reset-done.html'), name='password_reset_done'),
     path('accounts/reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="registration/password-reset-confirm.html"), name='password_reset_confirm'),
