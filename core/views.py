@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import logout, authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Categoria1,Categoria2,Vehiculo, Boleta, detalle_boleta
 from .forms import CamionForm, RegistroUserForm
 from django.contrib import messages
@@ -9,6 +9,8 @@ from core.compras import Carrito
 
 
 # Create your views here.
+def es_admin(user):
+    return user.is_superuser 
 
 def home(request):
     return render(request,'home.html')
@@ -21,7 +23,8 @@ def nosotros(request):
 def servicios(request): 
     camion = Vehiculo.objects.all()              #similar a select * from Vehiculo
     return render(request, 'servicios.html', {'camion':camion})
-
+@login_required
+@user_passes_test(es_admin)
 def crear(request):
     if request.method == 'POST':
         camionForm = CamionForm(request.POST, request.FILES)  # Crear una instancia de CancionesForms con datos del POST
@@ -40,8 +43,8 @@ def detalle(request, id):
 
 
 
-
-
+@login_required
+@user_passes_test(es_admin)
 def modificar(request, id):
     vehiculo = Vehiculo.objects.get(placa=id)
     datos={
@@ -60,6 +63,8 @@ def modificar(request, id):
         formulario = CamionForm(instance=vehiculo)
     return render(request, 'modificar.html', {'forModificar': formulario, 'vehiculo': vehiculo})
 
+@login_required
+@user_passes_test(es_admin)
 def eliminar(request, id):
     camion = get_object_or_404(Vehiculo, placa=id)
     if request.method=='POST':
@@ -150,5 +155,4 @@ def generarBoleta(request):
     carrito.limpiar()
     return render(request, 'detallecarrito.html',datos)
 
-def forgetpassword(request):
-    return render(request, 'registration/forget.html')
+
