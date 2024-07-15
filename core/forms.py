@@ -40,7 +40,7 @@ class UserUpdateForm(forms.ModelForm):
 class CamionForm(forms.ModelForm):
     class Meta:
         model = Vehiculo
-        fields = ['placa', 'marca', 'modelo', 'capacidad','precio','imagen','categoria1','categoria2']
+        fields = ['placa', 'marca', 'modelo', 'capacidad','precio','imagen','categoria1','categoria2','stock']
         labels={
             'placa': 'Id Camión',
             'marca':'Marca',
@@ -49,7 +49,8 @@ class CamionForm(forms.ModelForm):
             'precio': 'Precio',
             'imagen': 'Imagen',
             'categoria1': 'Categoria1',
-            'categoria2': 'Categoria2'
+            'categoria2': 'Categoria2',
+            'stock':'Stock'
         }
         widgets={
             'placa': forms.TextInput(
@@ -104,6 +105,13 @@ class CamionForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'id': 'categoria2'
+                }
+            ),
+            'stock': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder':'Ingrese el stock de este camión',
+                    'id': 'stock'
                 }
             ),
         }

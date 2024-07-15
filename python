@@ -1,0 +1,4 @@
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, core, sessions
+Running migrations:
+  Applying core.0004_vehiculo_stock... OK

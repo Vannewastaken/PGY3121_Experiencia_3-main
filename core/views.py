@@ -173,6 +173,8 @@ def generarBoleta(request):
             cliente = request.user.username
             detalle = detalle_boleta(id_boleta = boleta, id_producto = producto, cantidad = cant, subtotal = subtotal, cliente = cliente)
             detalle.save()
+
+            producto.stock -= cant
             productos.append(detalle)
     datos={
         'productos':productos,
@@ -187,4 +189,12 @@ def generarBoleta(request):
 
 def boleta(request):
     detalle_boletas = detalle_boleta.objects.all()
+    busqueda = request.GET.get("buscar")
+    if busqueda: 
+        detalle_boletas = detalle_boleta.objects.filter(
+            Q(id_boleta__id_boleta__icontains=busqueda) | 
+            Q(cliente__icontains=busqueda) |
+            Q(id_producto__placa__icontains=busqueda)
+            
+        ).distinct()
     return render(request, 'boleta.html', {'detalle_boletas': detalle_boletas})

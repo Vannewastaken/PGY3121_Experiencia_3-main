@@ -41,6 +41,10 @@
                     required: true,
                     numeropositivo: true
                 },
+                stock:{
+                    required: true,
+                    numeropositivo: true
+                },
                 categoria1:{
                     required: true
                 },
@@ -68,6 +72,10 @@
                 },
                 precio:{
                     required: "Debe ingresar el precio",
+                    numeropositivo: "Debe ingresar un número positivo"
+                },
+                stock:{
+                    required: "Debe ingresar el stock",
                     numeropositivo: "Debe ingresar un número positivo"
                 },
                 categoria1:{
@@ -120,6 +128,11 @@
         <div class="form-group" style="margin-bottom: 20px;">
             {{ forModificar.precio.label }}
             {{ forModificar.precio }}
+            
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.stock.label }}
+            {{ forModificar.stock }}
             
         </div>
         <div class="form-group" style="margin-bottom: 20px;">

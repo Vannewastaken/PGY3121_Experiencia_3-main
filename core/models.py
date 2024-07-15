@@ -1,6 +1,6 @@
 import datetime
 from django.db import models
-from distutils.command.upload import upload
+from setuptools.command.upload import upload
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -28,6 +28,7 @@ class Vehiculo(models.Model):
     imagen = models.ImageField(upload_to="imagenes", null=True, verbose_name='Imagen')
     categoria1= models.ForeignKey('Categoria1', on_delete=models.CASCADE, verbose_name='Categoria1')
     categoria2= models.ForeignKey('Categoria2', on_delete=models.CASCADE, verbose_name='Categoria2')
+    stock = models.IntegerField(verbose_name="Stock", default=0)
     
 
     def __str__(self):
