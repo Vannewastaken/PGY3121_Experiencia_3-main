@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %} ABOUT US {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+
+    
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+<!-- TITULO -->
+<div class="container-fluid" style="background-color: #fdfbf1;">
+    <div class="row" style="height: 500px;">
+        <div class="col d-flex justify-content-center align-items-center">
+            <div class="text-center">
+                <h1>SOBRE NOSOTROS</h1>
+                <div class="row">
+                    <div class="col p-4">
+                        <p style="max-width: 600px; margin: 0 auto;">
+                            Nuestro objetivo es establecer relaciones sólidas y duraderas con nuestros clientes,
+                            brindando un servicio que supere constantemente sus expectativas. Buscamos no solo ser una
+                            empresa líder en transporte de carga, sino también formar parte de los mejores equipos de
+                            transporte en Chile.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row rowstyle-dark" style="background-color: #383b3d">
+        <div class="col-lg-6">
+            <h2 style="color: #fdfbf1; margin: 50px;">QUE HACEMOS</h2>
+            <p style="color: #fdfbf1; margin: 50px;">
+                El transporte de carga por carretera es una actividad fundamental en la logística moderna, que implica el movimiento de bienes y 
+                mercancías a través de vehículos especializados por las redes de carreteras. Esta modalidad de transporte es versátil y adaptable, 
+                permitiendo el traslado de una amplia variedad de cargas, desde productos manufacturados hasta materias primas, alimentos perecederos y más.
+            </p>
+        </div>
+        <div class="col-lg-6 d-flex justify-content-center align-items-center">
+            <a>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/ao9gqQIkF58?si=gIiRHNDSqtiHGsm0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Agregar elemento para mostrar los datos de la API -->
+<div class="container">
+    <div id="holidays" class="m-5" style="justify-items: left;"></div>
+</div>
+{% endblock %}
+
+{% block js_content %}
+
+<script>
+    const apiUrl = 'https://api.boostr.cl/holidays.json';
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const finalUrl = proxyUrl + apiUrl;
+
+    fetch(finalUrl)
+    .then(response => response.json())
+    .then(data => {
+        const holidaysContainer = document.getElementById('holidays');
+        holidaysContainer.innerHTML = '<h2>Días Festivos</h2>';
+        const holidaysList = document.createElement('ul');
+        data.data.forEach(holiday => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${holiday.date}: ${holiday.title}`;
+            holidaysList.appendChild(listItem);
+        });
+        holidaysContainer.appendChild(holidaysList);
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+</script>
+{% endblock %}

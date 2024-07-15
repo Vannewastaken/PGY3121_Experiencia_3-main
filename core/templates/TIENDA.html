@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %} Detalle {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+
+<style>
+    /* Estilos adicionales para la página */
+    .tienda-header {
+        font-size: 70px;
+        font-weight: 800;
+        text-decoration: underline;
+        margin-bottom: 20px; /* Espacio entre el título y el contenido */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container-fluid">
+    <div class="row justify-content-center" style="padding: 70px;">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="tienda-header">TIENDA</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    {% include "carrito.html" %}
+                </div>
+            </div>
+
+            <div class="row">
+                {% for auto in camion %}
+                <div class="col-lg-4 col-md-6 col-sm-12" style="padding: 30px;">
+                    <div class="card mx-auto" style="padding: 20px;">
+                        {% if auto.imagen %}
+                        <img class="card-img-top mx-auto" src="{{ auto.imagen.url }}" alt="Card image" style="max-width:100% ;width: 280px; height: 280px;">
+                        {% else %}
+                        <img src="{% static 'IMG/sinfoto.webp' %}" class="card-img-top mx-auto" style="max-width:100% ;width: 250px; height: 250px;">
+                        {% endif %}
+                        <div class="card-body text-center">
+                            <h4 class="card-title">Patente: {{ auto.placa }}</h4>
+                            <p class="card-text">
+                                Marca: {{ auto.marca }}<br>
+                                Capacidad: {{ auto.capacidad }}<br>
+                                Precio: ${{ auto.precio }}<br>
+                            </p>
+                            <a href="{% url 'agregar' auto.placa %}" class="btn btn-dark">Agregar al carro</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

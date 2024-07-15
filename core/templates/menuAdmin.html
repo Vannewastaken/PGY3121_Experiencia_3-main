@@ -1,0 +1,46 @@
+{% load static %}
+
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'nosotros' %}">
+                <h2 class="poppins">
+                    NOSOTROS
+                </h2>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'servicios' %}">
+                <h2 class="poppins">PRODUCTOS</h2>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'tienda' %}">
+                <h2 class="poppins">TIENDA</h2>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <h2 class="poppins">PERFIIL ADMIN: {{ user.email }}</h2>
+                </a>
+            </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}  
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'cerrar' %}">
+                <h2 class="poppins">
+                    CERRAR SESIÓN
+                </h2>
+            </a>
+        </li>                             
+             
+
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">
+                <h2 class="poppins">
+                    INICIAR SESIÓN
+                </h2>
+            </a>
+        </li>
+        {% endif %}

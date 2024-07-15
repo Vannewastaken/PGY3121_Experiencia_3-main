@@ -1,0 +1,144 @@
+{
+    "camiones": [
+        {
+            "id":"GJFL62",
+            "marca":"Hyundai",
+            "valorxruta":"$82.500",
+            "capacidad":"12 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://www.zentrumcamiones.cl/wp-content/uploads/2023/03/Zentrum-Camiones-Volkswagen-25360-hr-v-tronic.jpg"
+        },
+        {
+            "id":"HJGV59",
+            "marca":"Hyundai",
+            "valorxruta":"$92.500",
+            "capacidad":"16 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/XDMcnHQ/CAMION7.png"
+        },
+        {
+            "id":"CDYJ26",
+            "marca":"Volkswagen",
+            "valorxruta":"$90.500",
+            "capacidad":"14 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/YZZzpKD/CAMION9.png"
+        },
+        {
+            "id":"WJ4428",
+            "marca":"Volkswagen",
+            "valorxruta":"$120.700",
+            "capacidad":"12 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/RY70tQP/CAMION8.png"
+        },
+        {
+            "id":"UY2948",
+            "marca":"Chevrolet",
+            "valorxruta":"$120.700",
+            "capacidad":"16 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/RY70tQP/CAMION8.png"
+        },
+        {
+            "id":"YG5760",
+            "marca":"Ford",
+            "valorxruta":"$115.000",
+            "capacidad":"14 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/RY70tQP/CAMION8.png"
+        },
+        {
+            "id":"JA5390",
+            "marca":"Randon",
+            "valorxruta":"$260500",
+            "capacidad":"25 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/d2SnLMx/camion-camion.png"
+            
+        },
+        {
+            "id":"JF6629",
+            "marca":"Stoughthon",
+            "valorxruta":"$270500",
+            "capacidad":"30 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/2dNxfSZ/camion3.png"
+            
+        },
+        {
+            "id":"JK7364",
+            "marca":"Dry Van",
+            "valorxruta":"$275500",
+            "capacidad":"32 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/zHL39z5/camion6.png"
+            
+        },
+        {
+            "id":"JL6717",
+            "marca":"Cran Danes",
+            "valorxruta":"$402.500",
+            "capacidad":"30 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/vDZ38z7/camion5.png"
+            
+        },
+        {
+            "id":1,
+            "marca":"Wabash",
+            "valorxruta":"$402.500",
+            "capacidad":"32 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/d2SnLMx/camion-camion.png"
+            
+        },
+        {
+            "id":"HGKL89",
+            "marca":"Wabash",
+            "valorxruta":"290500",
+            "capacidad":"32 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/d2SnLMx/camion-camion.png"
+            
+        },
+        {
+            "id":"JE2384",
+            "marca":"Cran Danes",
+            "valorxruta":"$282000",
+            "capacidad":"28 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/2dNxfSZ/camion3.png"
+            
+        },
+        {
+            "id":"JA4815",
+            "marca":"Musrre",
+            "valorxruta":"$275500",
+            "capacidad":"25 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/zHL39z5/camion6.png"
+            
+        },
+        {
+            "id":"JA5183",
+            "marca":"Utility",
+            "valorxruta":"$290500",
+            "capacidad":"28 Pallets",
+            "ciudad":"Santiago",
+            "img":"https://i.ibb.co/vDZ38z7/camion5.png"
+            
+        },
+        {
+            "id":"PTXZ13",
+            "marca":"Srf02",
+            "valorxruta":"$395500",
+            "capacidad":"30 Pallets",
+            "ciudad":"Rancagua",
+            "img":"https://i.ibb.co/d2SnLMx/camion-camion.png"
+            
+        }
+    ]
+    
+}
+

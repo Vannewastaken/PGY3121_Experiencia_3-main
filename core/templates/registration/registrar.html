@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %} Modificar vehículo {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/ESTILOS.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+
+
+
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<body style="background-color: #383b3d;">
+    <div class="container" >
+        <div class="row " style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
+            <div class="col-lg-3" >
+                
+            </div>
+            <div class="col-lg-6 rounded"  style="background-color: rgb(255, 255, 255); padding-bottom: 60px;">
+                <h1 style="padding-top: 80px; text-align: center; ">Registrarse</h1>
+
+                <div class="row inicioform text-center " style=" padding-top: 40px;">
+                    <form action="#" method="POST" id="formulario">
+                        {% csrf_token %}
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Username: </label><br>
+                            {{ form.username }}
+                            {% for error in form.username.errors %}
+                            <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Nombre del usuario: </label><br>
+                            {{ form.first_name }}
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Apellido del usuario: </label><br>
+                            {{ form.last_name }}
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Correo Electrónico: </label><br>
+                            {{ form.email }}
+                            {% for error in form.email.errors %}
+                            <p style="color: red;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Contraseña: </label>
+                            <br>
+                            {{ form.password1 }}
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Repetir Contraseña: </label><br>
+                            {{ form.password2 }}
+                        </div>
+                        
+                        <a href="{% url 'login' %}" class="btn btn-dark ">Login</a> | 
+                        <input type="submit" value="Registrarse" class="btn btn-dark " > |
+                        <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+
+
+                    </form>
+                    
+                </div>
+
+                
+
+            </div>
+            
+            <div class="col-lg-3" >
+                
+            </div>
+            
+        
+
+        </div>
+    </div>
+{% endblock %}

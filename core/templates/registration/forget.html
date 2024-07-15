@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} RECUPERAR CONTRASEÑA {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/ESTILOS.css' %}">
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<body style="background-color: #383b3d;">
+    <div class="container">
+        <div class="row" style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6 rounded" style="background-color: rgb(255, 255, 255); padding-bottom: 60px;">
+                <h1 style="padding-top: 80px; text-align: center;">Recuperar Contraseña</h1>
+                <div class="row inicioform text-center" style="padding-top: 40px;">
+                    <form action="#" method="POST" id="formulario">
+                        {% csrf_token %}
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="">Correo Electrónico: </label><br>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Correo Electrónico">
+                            {{ form.email }}
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success" type="submit">Olvide mi Contraseña</button>
+                        </div>
+                        <a href="{% url 'login' %}" class="btn btn-dark">Iniciar Sesión</a> |
+                        <a href="{% url 'home' %}" class="btn btn-dark">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

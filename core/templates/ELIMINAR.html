@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %} eliminar vehículo {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+
+
+
+
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<main class="container" style="background-color: rgba(184, 184, 184, 0.479);">
+    <h1 class="text-center " style="font-size: 60px; padding: 70px;">ELIMINANDO CAMIÓN...</h1>
+    <br>
+    <form action="" method="POST" enctype="multipart/form-data" class="text-center" >
+        {% csrf_token %}
+
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="idVehiculo">Patente: </label>
+            {{ camion.placa }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="marca">Marca: </label>
+            {{ camion.marca }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="modelo">Modelo: </label>
+            {{ camion.modelo }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="categoria">Capacidad: </label>
+            {{ camion.capacidad }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="imagen">Precio: </label>
+            {{ camion.precio }}
+        </div>
+        
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="categoria">Rampla: </label>
+            {{ camion.categoria1 }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px ;">
+            <label for="categoria">Ciudad: </label>
+            {{ camion.categoria2 }}
+        </div>
+
+        {% if camion.imagen %}
+            <img src="{{ camion.imagen.url }}" style="width: 80px; height: 80px; margin-bottom: 20px ;">
+         {% else %}
+            <h5 style="color:red" style="margin-bottom: 20px ;">Producto sin foto</h5>
+        {% endif %}
+
+        <br> <br>
+        <input type="submit" value="Confirma Eliminación?" name="eliminar" class="btn btn-danger tablefonttd mt-5 mb-5 " style="font-size: 20px; ">
+        <a href="{% url 'servicios' %}" class="btn btn-dark mt-5 mb-5 " style="font-size: 20px;"> Ir a Productos </a>
+        
+
+    </form>
+</main>
+
+{% endblock %}

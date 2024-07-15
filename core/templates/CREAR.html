@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block head-extra %}
+<script>
+    $(document).ready(function() {
+        $("#formulario").validate({
+            rules: {
+                placa: "required",
+                marca: "required",
+                modelo: "required",
+                capacidad: "required",
+                precio: "required",
+                imagen: "required",
+                categoria1: "required",
+                categoria2: "required",
+            },
+            messages: {
+                placa: {
+                    required: 'Ingrese Patente del Camión',
+                },
+                marca: {
+                    required: 'Ingrese marca',
+                },
+                modelo: {
+                    required: 'Ingrese modelo',
+                },
+                capacidad: {
+                    required: 'Seleccione la capacidad',
+                },
+                precio: {
+                    required: 'Seleccione el precio',
+                },
+                imagen: {
+                    required: 'Seleccione imagen',
+                },
+                categoria1: {
+                    required: 'Seleccione categoria',
+                },
+                categoria2: {
+                    required: 'Seleccione ciudad',
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1 style="font-size: 50px; margin-top: 40px;">AGREGAR CAMIÓN!</h1>
+    <br>
+    <form action="#" method="POST" enctype="multipart/form-data" id="formulario">
+        {% csrf_token %}
+        
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.placa.label }}
+            {{ camionForm.placa }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.marca.label }}
+            {{ camionForm.marca }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.modelo.label }}
+            {{ camionForm.modelo }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.capacidad.label }}
+            {{ camionForm.capacidad }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.precio.label }}
+            {{ camionForm.precio }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.imagen.label }}
+            {{ camionForm.imagen }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.categoria1.label }}
+            {{ camionForm.categoria1 }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ camionForm.categoria2.label }}
+            {{ camionForm.categoria2 }}
+        </div>
+
+        <input type="submit" value="Agregar Camión" class="btn btn-info mt-5 mb-5">
+        <a href="{% url 'servicios' %}" class="btn btn-dark mt-5 mb-5" style="margin-left: 20px;"> Ir a Productos </a>
+    </form>
+</main>
+{% endblock %}

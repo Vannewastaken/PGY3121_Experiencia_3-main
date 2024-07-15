@@ -1,0 +1,109 @@
+body {
+  background-color: #fdfbf1;
+}
+
+/* CAMBIAR DE COLOR EL NAV */
+.menu {
+  background-color: #171718;
+}
+
+/* PARA QUITARLE LOS ESPACIOS A LOS LADOS */
+.navdiv {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* FONTS */
+.poppins {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 17px;
+  color: #f9fbff;
+  padding: 10px;
+}
+
+p {
+  font-family: "Almarai", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 19px;
+}
+
+.rowstyle-dark {
+  background-color: #383b3d;
+  margin-top: 40px;
+  padding: 20px;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.marginrow {
+  margin: 100px;
+}
+
+h3 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.inicioform {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.btnstyleform {
+  background-color: #171718;
+  color: #f9fbff;
+  font-family: "Poppins", sans-serif;
+}
+
+.btnstyleform:hover {
+  background-color: #c6cbce;
+}
+
+.inputfont {
+  font-family: "Almarai", sans-serif;
+  font-weight: 400;
+}
+
+.labelfont {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.table-bordered-custom {
+  border-width: 2px;
+  border-style: solid;
+  border-color: #181818;
+}
+
+.table-bordered-custom th,
+.table-bordered-custom td {
+  border-width: 2px;
+  border-style: solid;
+}
+
+/* Para la tabla */
+.tablefontth {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 20px;
+}
+
+.tablefonttd {
+  font-family: "Almarai", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 15px;
+}
+
+.btn-move-down {
+  margin-top: 20px; /* Ajusta el valor según sea necesario */
+}

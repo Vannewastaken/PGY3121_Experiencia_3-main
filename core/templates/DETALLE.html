@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %} Detalle {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+
+
+
+
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="container" style="margin-bottom: 100px;">
+    <br>
+    <h1 style="text-align: center; padding: 50px; font-size: 50px;">DETALLE CAMIÓN</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <img src="{{ camion.imagen.url }}" class="card-img-top">
+                <div class="card-body" style="padding: 30px;padding-top: 40px;">
+                    <h5 class="card-title">Patente: {{camion.placa}}</h5>
+                    <p class="card-text"> Marca: {{camion.marca}}</p>
+                    <p class="card-text"> Capacidad: {{camion.capacidad}}</p>
+                    <p class="card-text"> Ciudad: {{camion.categoria2}}</p>
+                    <p class="card-text"> Rampla: {{camion.categoria1}}</p>
+                    <p class="card-text"> Precio: {{camion.precio}}</p>
+                    <a href="{% url 'servicios' %}" class="btn btn-dark mb-4 mt-3" style="margin-right: 20px;"> Ir a Productos </a>
+                    <a href="{% url 'modificar' %}" class="btn btn-warning mb-4 mt-3"> Modificar </a>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+
+</div>
+
+{% endblock %}

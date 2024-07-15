@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %} Modificar vehículo {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.3/jquery.validate.min.js"></script>
+
+
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<main class="container">
+
+    <h1 class="text-center " style="font-size: 60px; padding: 70px;">¡MODIFICANDO CAMIÓN!</h1>
+    <br>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+    {% endif %}
+    
+
+    <form action="" method="POST" enctype="multipart/form-data" id="formulario" >  
+        {% csrf_token %}
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.placa.label }}
+            {{ forModificar.placa }}
+            {{ forModificar.placa.errors }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.marca.label }}
+            {{ forModificar.marca }}
+            {{ forModificar.marca.errors }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.modelo.label }}
+            {{ forModificar.modelo }}
+            {{ forModificar.modelo.errors }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.capacidad.label }}
+            {{ forModificar.capacidad }}
+            {{ forModificar.capacidad.errors }}
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.precio.label }}
+            {{ forModificar.precio }}
+            {{ forModificar.precio.errors }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.imagen.label }}
+            {{ forModificar.imagen }}
+            {{ forModificar.imagen.errors }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.categoria1.label }}
+            {{ forModificar.categoria1 }}
+            {{ forModificar.categoria1.errors }}
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.categoria2.label }}
+            {{ forModificar.categoria2 }}
+            {{ forModificar.categoria2.errors }}
+        </div>
+
+        {% if vehiculo.imagen %}
+            <img src="{{ vehiculo.imagen.url }}" style="width: 80px; height: 80px; margin-bottom: 20px;">
+        {% else %}
+            <h5 style="color:red; margin-bottom: 20px;">Producto sin foto</h5>
+        {% endif %}
+
+        <div class="form-group" style="margin-bottom: 20px;">
+            {{ forModificar.imagen.label }}
+            {{ forModificar.imagen }}
+        </div>
+
+        <input type="submit" value="Modificar" class="btn btn-warning mb-5 mt-4" style="margin-right: 20px; font-size: 20px;">
+        <a href="{% url 'servicios' %}" class="btn btn-dark mb-5 mt-4" style="font-size: 20px;">Ir a Productos</a>
+
+
+    </form>
+</main>
+
+
+
+
+{% endblock %}
