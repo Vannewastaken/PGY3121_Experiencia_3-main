@@ -3,7 +3,8 @@ from django.forms import ModelForm
 from django.forms import widgets
 from django.forms.widgets import Widget
 from .models import Categoria1,Categoria2,Vehiculo
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -28,6 +29,14 @@ class RegistroUserForm(UserCreationForm):
             raise forms.ValidationError("Este email de usuario ya está en uso.")
         return email   
 
+class UserUpdateForm(forms.ModelForm):
+    password = None  # Excluir los campos de contraseña
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+        widgets = {
+            'username': forms.HiddenInput()
+        } 
 class CamionForm(forms.ModelForm):
     class Meta:
         model = Vehiculo

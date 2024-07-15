@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import Categoria1,Categoria2,Vehiculo, Boleta, detalle_boleta
-from .forms import CamionForm, RegistroUserForm
+from .forms import CamionForm, RegistroUserForm,UserUpdateForm
 from django.contrib import messages
 from core.compras import Carrito
 
@@ -121,6 +121,19 @@ def registrar(request):
     return render(request, 'registration/registrar.html',data)
 
 
+@login_required
+def cuenta(request):
+    usuario = request.user
+    datos = {
+        'forModificar': UserUpdateForm(instance=usuario),
+        'usuario': usuario
+    }
+    if request.method=='POST':
+        form = UserUpdateForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            return redirect ('cuenta')
+    return render(request, 'cuenta.html', datos)
 
 def agregar_producto(request,id):
     carrito_compra= Carrito(request)

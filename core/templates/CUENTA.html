@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %} Account {% endblock %}
+
+{% block head-extra %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/ESTILOS.css' %}">
+
+
+
+
+
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<body style="background-color: #383b3d;">
+    <div class="container" >
+        <div class="row " style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
+            <div class="col-lg-3" >
+                
+            </div>
+            <div class="col-lg-6 rounded"  style="background-color: rgb(255, 255, 255);">
+                <h1 style="padding-top: 80px; text-align: center; ">Cuenta</h1>
+
+                <div class="row inicioform " style=" padding-top: 40px;">
+                    <form action="#" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <br>
+                        <img src="{% static 'img/LogoUser.png' %}" alt="" style="width: 175px;"><br><br>
+            
+                        <div class="form-group">
+                            <label for="" style="font-size: large;">Username: </label>
+                            {{usuario.username}}
+                        </div><br>
+            
+                        <div>
+                            {{forModificar.username}}
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="" style="font-size: large;">Nombre del usuario: </label>
+                            {{forModificar.first_name}}
+                        </div><br>
+            
+                        <div class="form-group">
+                            <label for="" style="font-size: large;">Apellido del usuario: </label>
+                            {{forModificar.last_name}}
+                        </div><br>
+            
+                        <div class="form-group">
+                            <label for="" style="font-size: large;">Email: </label>
+                            {{forModificar.email}}
+                        </div><br>
+            
+            
+                        <input type="submit" value="Guardar Cambios" class="btn btn-secondary" style="float: right;"><br><br>
+                    </form>
+                </div>
+
+                
+
+            </div>
+            
+            <div class="col-lg-3" >
+                
+            </div>
+            
+        
+
+        </div>
+    </div>
+{% endblock %}
