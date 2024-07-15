@@ -4,6 +4,68 @@
 {% block head-extra %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/ESTILOS.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script>
+    $(function(){
+        $.validator.addMethod("letterandnumbers", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9]+$/.test(value);
+        }, "Este campo solo acepta letras y números.");
+        $.validator.addMethod("lettersonly", function(value, element) {
+                return this.optional(element) || /^[a-z]+$/i.test(value);
+            }, "Este campo solo acepta letras");
+
+        $.validator.addMethod("equalTo", function(value, element, param) {
+            return value == $(param).val();
+        }, "Las contraseñas no coinciden.");
+
+        $("#account").validate({
+            
+            rules:{
+                username:{
+                    required: true,
+                    minlength: 3,
+                    letterandnumbers: true
+                },
+                first_name:{
+                    required: true,
+                    minlength: 3,
+                    lettersonly: true
+                },
+                last_name: {
+                    required: true,
+                    minlength: 3,
+                    lettersonly: true
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+            },
+            messages:{
+                username:{
+                    required: "Debe ingresar su username",
+                    minlength: "Escriba al menos 3 caracteres",
+                    letterandnumbers:"Solo ingrese letras y números"
+                },
+                first_name:{
+                    required: "Debe ingresar su nombre",
+                    minlength: "Escriba al menos 3 caracteres",
+                    lettersonly: "No ingrese números ni caracteres especiales"
+                },
+                last_name: {
+                    required: "Debe ingresar su apellido",
+                    minlength: "Escriba al menos 3 caracteres",
+                    lettersonly: "No ingrese números ni caracteres especiales"
+                },
+                email: {
+                    required: "Debe ingresar su correo",
+                    email: "Ingrese un correo válido"
+                }
+            }
+        });
+    });
+</script>
 
 
 
@@ -15,45 +77,49 @@
 {% load static %}
 <body style="background-color: #383b3d;">
     <div class="container" >
-        <div class="row " style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
+        <div class="row " style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 300px;">
             <div class="col-lg-3" >
                 
             </div>
             <div class="col-lg-6 rounded"  style="background-color: rgb(255, 255, 255);">
-                <h1 style="padding-top: 80px; text-align: center; ">Cuenta</h1>
+                <h1 style="padding-top: 80px; text-align: center; font-weight:bold ;">CUENTA</h1>
+                <div class="text-center" style="margin-top: 40px;">
+                    <img src="{% static 'img/LogoAccount.png' %}" alt="User Logo" style="width: 175px;">
+                </div>
 
-                <div class="row inicioform " style=" padding-top: 40px;">
-                    <form action="#" method="POST" enctype="multipart/form-data">
+                <div class="row inicioform " style=" padding-top: 20px;">
+                    <form action="#" method="POST" enctype="multipart/form-data" id="account">
                         {% csrf_token %}
                         <br>
-                        <img src="{% static 'img/LogoUser.png' %}" alt="" style="width: 175px;"><br><br>
-            
-                        <div class="form-group">
-                            <label for="" style="font-size: large;">Username: </label>
-                            {{usuario.username}}
+                        
+                        <div class="form-group" style="text-align: center;">
+                            <label for="" style="font-size: 25PX;font-weight: bold; ">Username: {{usuario.username}}</label>
                         </div><br>
-            
-                        <div>
-                            {{forModificar.username}}
-                        </div>
-            
+                        <hr style="margin-bottom: 40px;">
                         <div class="form-group">
-                            <label for="" style="font-size: large;">Nombre del usuario: </label>
+                            <label for="" style="font-size: large;font-weight: 500;">Nombre del usuario: </label>
+                            {{forModificar.username.errors}}
+                            {{forModificar.username}}
+                        </div><br>
+                        <div class="form-group">
+                            <label for="" style="font-size: large;font-weight: 500;">Nombre del usuario: </label>
                             {{forModificar.first_name}}
                         </div><br>
             
                         <div class="form-group">
-                            <label for="" style="font-size: large;">Apellido del usuario: </label>
+                            <label for="" style="font-size: large;font-weight: 500;">Apellido del usuario: </label>
                             {{forModificar.last_name}}
                         </div><br>
             
                         <div class="form-group">
-                            <label for="" style="font-size: large;">Email: </label>
+                            <label for="" style="font-size: large; font-weight: 500;">Email: </label>
+                            {{forModificar.email.errors}}
                             {{forModificar.email}}
                         </div><br>
+                        
             
             
-                        <input type="submit" value="Guardar Cambios" class="btn btn-secondary" style="float: right;"><br><br>
+                        <input type="submit" value="Guardar Cambios" class="btn btn-dark" ><br><br>
                     </form>
                 </div>
 

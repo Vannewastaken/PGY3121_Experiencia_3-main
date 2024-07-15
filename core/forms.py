@@ -4,7 +4,6 @@ from django.forms import widgets
 from django.forms.widgets import Widget
 from .models import Categoria1,Categoria2,Vehiculo
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -34,9 +33,8 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
-        widgets = {
-            'username': forms.HiddenInput()
-        } 
+        
+        
 class CamionForm(forms.ModelForm):
     class Meta:
         model = Vehiculo
@@ -136,3 +134,4 @@ class CamionForm(forms.ModelForm):
         if precio <= 0:
             raise ValidationError("El precio debe ser un número positivo.")
         return precio
+    

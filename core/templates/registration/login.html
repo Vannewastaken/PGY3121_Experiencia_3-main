@@ -53,10 +53,10 @@
     <div class="container">
         <div class="row" style="height: 600px; margin-top: 180px; margin-left: 10px; margin-right: 10px; margin-bottom: 180px;">
             <div class="col-lg-3">
-                <!-- Espacio reservado o contenido adicional -->
+                
             </div>
             <div class="col-lg-6 rounded" style="background-color: rgb(255, 255, 255);">
-                <h1 style="padding-top: 80px; text-align: center;">Iniciar sesión</h1>
+                <h1 style="padding-top: 80px; text-align: center; font-weight: bold;">Iniciar sesión</h1>
 
                 <div class="row inicioform" style="padding-top: 40px;">
                     <form action="#" method="POST" class="text-center" enctype="multipart/form-data" id="login">
@@ -68,21 +68,24 @@
                             <div class="error-message" id="error-username"></div>
                         </div>
 
-                        <div class="form-group" style="margin-bottom: 30px;">
+                        <div class="form-group" style="margin-bottom: 10px;">
                             <label for="id_password">Contraseña: </label><br>
                             {{ form.password }}
                             <div class="error-message" id="error-password"></div>
                         </div>
+                        <a href="{% url 'password_reset' %}" style="margin-bottom: 10px; display: block; color: black; transition: color 0.3s ease;" >Olvidé mi Contraseña</a>
+
+                        <br>
+                        
 
                         <a href="{% url 'registrar' %}" class="btn btn-dark">Registrarse</a> |
-                        <input type="submit" value="Log In" class="btn btn-dark"> |
-                        <a href="{% url 'home' %}" class="btn btn-dark">Home</a> |
-                        <a href="{% url 'password_reset' %}" class="btn btn-dark">Olvidé mi Contraseña</a>
+                        <input type="submit" value="Log In" class="btn btn-dark"> 
+                        
                     </form>
                 </div>
             </div>
             <div class="col-lg-3">
-                <!-- Espacio reservado o contenido adicional -->
+                
             </div>
         </div>
     </div>

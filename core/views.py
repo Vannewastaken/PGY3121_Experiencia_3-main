@@ -34,7 +34,7 @@ def productos_general(request):
         ).distinct()
     return render(request, 'productos_general.html', {'camion':camion})
 
-@login_required
+
 def servicios(request):
     camion = Vehiculo.objects.all()
     busqueda = request.GET.get("buscar")
@@ -48,7 +48,7 @@ def servicios(request):
         ).distinct()
     return render(request, 'servicios.html', {'camion':camion})
 
-@login_required
+
 def crear(request):
     if request.method == 'POST':
         camionForm = CamionForm(request.POST, request.FILES)  # Crear una instancia de CancionesForms con datos del POST
@@ -153,38 +153,62 @@ def limpiar_carrito(request):
 
 def tienda(request):
     camion = Vehiculo.objects.all()
-    datos={
-        'camion':camion
-    }
-    return render(request, 'tienda.html', datos)
+    busqueda = request.GET.get("buscar")
+    if busqueda: 
+        camion = Vehiculo.objects.filter(
+            Q(marca__icontains = busqueda) |
+            Q(placa__icontains = busqueda) |
+            Q(capacidad__icontains = busqueda) |
+            Q(categoria1__nombre__icontains=busqueda) |
+            Q(categoria2__ciudad__icontains=busqueda)
+        ).distinct()
+    return render(request, 'tienda.html', {'camion': camion})
 
 
 def generarBoleta(request):
-    precio_total=0
-    for key, value in request.session['carrito'].items():
-        precio_total = precio_total + int(value['precio']) * int(value['cantidad'])
-    boleta = Boleta(total = precio_total)
+    precio_total = 0
+    carrito = request.session.get('carrito', {})
+    
+    for key, value in carrito.items():
+        precio_total += int(value['precio']) * int(value['cantidad'])
+    
+    boleta = Boleta(total=precio_total)
     boleta.save()
+    
     productos = []
-    for key, value in request.session['carrito'].items():
-            producto = Vehiculo.objects.get(placa = value['placa'])
-            cant = value['cantidad']
-            subtotal = cant * int(value['precio'])
-            cliente = request.user.username
-            detalle = detalle_boleta(id_boleta = boleta, id_producto = producto, cantidad = cant, subtotal = subtotal, cliente = cliente)
-            detalle.save()
-
-            producto.stock -= cant
-            productos.append(detalle)
-    datos={
-        'productos':productos,
-        'fecha':boleta.fechaCompra,
+    
+    for key, value in carrito.items():
+        producto = Vehiculo.objects.get(placa=value['placa'])
+        cant = int(value['cantidad'])
+        subtotal = cant * int(value['precio'])
+        cliente = request.user.username
+        
+        detalle = detalle_boleta(
+            id_boleta=boleta, 
+            id_producto=producto, 
+            cantidad=cant, 
+            subtotal=subtotal, 
+            cliente=cliente
+        )
+        detalle.save()
+        
+        producto.stock -= cant
+        producto.save()  # Asegúrate de guardar los cambios en el producto
+        
+        productos.append(detalle)
+    
+    datos = {
+        'productos': productos,
+        'fecha': boleta.fechaCompra,
         'total': boleta.total
     }
+    
     request.session['boleta'] = boleta.id_boleta
-    carrito = Carrito(request)
-    carrito.limpiar()
-    return render(request, 'detallecarrito.html',datos)
+    
+    carrito_obj = Carrito(request)
+    carrito_obj.limpiar()
+    
+    return render(request, 'detallecarrito.html', datos)
 
 
 def boleta(request):
